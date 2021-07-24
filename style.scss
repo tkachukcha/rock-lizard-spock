@@ -1,3 +1,57 @@
-body {
-  margin: 0;
+@import 'reset';
+
+@mixin figure($name, $x, $y) {
+    ##{$name} {
+    position: absolute;
+    top: #{$y}px;
+    left: #{$x}px;
+    background: center no-repeat url('/img/#{$name}.jpg');
+    background-size: cover;
+  }
 }
+
+$figureSize: 170px;
+$mainX: 1;
+$mainY: 1;
+
+
+html {
+  font-size: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+  width: 800px;
+  height: 800px;
+  margin: 0 auto;
+  position: relative;
+  border: 3px solid #242261;
+}
+
+.figure {
+  display: inline-block;
+  height: $figureSize;
+  width: $figureSize;
+  max-width: 300px;
+  margin: 10px;
+
+  border: 7px solid #242261;
+  border-radius: $figureSize;
+}
+
+.figure {
+  
+}
+
+@include figure(rock, 280, 10);
+
+@include figure(paper, 500, 200);
+@include figure(scissors, 60, 200);
+
+@include figure(spock, 410, 440);
+@include figure(lizard, 150, 440);
+
+@include figure(comp, 280, 250);
