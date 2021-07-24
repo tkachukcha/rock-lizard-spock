@@ -13,6 +13,8 @@
 $figureSize: 170px;
 $mainX: 1;
 $mainY: 1;
+$primaryColor: #242261;
+$arrowHead: 8px;
 
 
 html {
@@ -28,7 +30,7 @@ main {
   height: 800px;
   margin: 0 auto;
   position: relative;
-  border: 3px solid #242261;
+  border: 3px solid $primaryColor;
 }
 
 .figure {
@@ -38,12 +40,37 @@ main {
   max-width: 300px;
   margin: 10px;
 
-  border: 7px solid #242261;
+  border: 7px solid $primaryColor;
   border-radius: $figureSize;
 }
 
-.figure {
-  
+.arrow-body {
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: $primaryColor;
+  top: 16px;
+  left: 15px;
+  z-index: 99;
+}
+
+.arrow-head {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-top: $arrowHead solid $primaryColor;
+  border-left: $arrowHead solid $primaryColor;
+  border-right: $arrowHead solid #fff;
+  border-bottom: $arrowHead solid #fff;
+  height: $arrowHead;
+  width: $arrowHead;
+  transform: rotate(-45deg);
+}
+
+.arrow {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 @include figure(rock, 280, 10);
