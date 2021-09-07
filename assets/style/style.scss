@@ -5,7 +5,7 @@
     position: absolute;
     top: #{$y}px;
     left: #{$x}px;
-    background: center no-repeat url('/img/#{$name}.jpg');
+    background: center no-repeat url('../img/#{$name}.jpg');
     background-size: cover;
   }
 }
