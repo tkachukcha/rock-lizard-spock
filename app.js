@@ -3,105 +3,104 @@
 const
   computerChoice = document.querySelector('#comp'),
   mainWindow = document.querySelector('main'),
-  helpBtn = document.querySelector('.help'),
-  rock = document.querySelector('#rock'),
-  scissors = document.querySelector('#scissors'),
-  paper = document.querySelector('#paper'),
-  lizard = document.querySelector('#lizard'),
-  spock = document.querySelector('#spock');
-  
+  helpBtn = document.querySelector('.help');
+// rock = document.querySelector('#rock'),
+// scissors = document.querySelector('#scissors'),
+// paper = document.querySelector('#paper'),
+// lizard = document.querySelector('#lizard'),
+// spock = document.querySelector('#spock');
+
 let playerChoice;
 let compChoice;
+
+class Figure {
+  constructor(name, num, isChosen, winIndexes, loseIndexes) {
+    this.name = name;
+    this.num = num;
+    this.isChosen = isChosen;
+    this.winIndexes = winIndexes;
+    this.loseIndexes = loseIndexes;
+  }
+  render() {
+    const div = document.createElement('div');
+    div.innerHTML = `<div id="${this.name}" class="figure"></div>`;
+    mainWindow.append(div);
+  }
+  showHelp() { // NOT YET!
+    const helperFunc = `${this.name}HelperShow`;
+    document.querySelector(`#${this.name}`).addEventListener('mouseenter', window[helperFunc]);
+    document.querySelector(`#${this.name}`).addEventListener('mouseleave', window[helperFunc]);
+  }
+  click() {
+    const name = this.name;
+    document.querySelector(`#${this.name}`).addEventListener('click', () => {
+      console.log(name);
+      console.log(figures.indexOf(name));
+    });
+  }
+}
+
+const rock = new Figure('rock', 1, false, [1,3], [2,4]);
+const scissors = new Figure('scissors', 1, false, [2,3], [0,4]);
+const paper = new Figure('paper', 1, false, [0,4], [2,3]);
+const lizard = new Figure('lizard', 1, false, [2,3], [4,0]);
+const spock = new Figure('spock', 1, false, [2,3], [4,0]);
+
+const figures = [rock, scissors, paper, lizard, spock];
+
+figures.forEach(elem => {
+  elem.render();
+  elem.showHelp();
+  elem.click();
+});
+
 
 // Show Hints
 
 helpBtn.addEventListener('mouseenter', showAllArrows);
-helpBtn.addEventListener('mouseleave', hideAllArrows);
+helpBtn.addEventListener('mouseleave', showAllArrows);
 
-rock.addEventListener('mouseenter', rockHelperShow);
-rock.addEventListener('mouseleave', rockHelperHide);
-
-scissors.addEventListener('mouseenter', scissorsHelperShow);
-scissors.addEventListener('mouseleave', scissorsHelperHide);
-
-paper.addEventListener('mouseenter', paperHelperShow);
-paper.addEventListener('mouseleave', paperHelperHide);
-
-lizard.addEventListener('mouseenter', lizardHelperShow);
-lizard.addEventListener('mouseleave', lizardHelperHide);
-
-spock.addEventListener('mouseenter', spockHelperShow);
-spock.addEventListener('mouseleave', spockHelperHide);
-
-function rockHelperShow() {
-  document.querySelector('#rockScissors').classList.remove('hide');
-  document.querySelector('#rockLizard').classList.remove('hide');
-  document.querySelector('#paperRock').classList.remove('hide');
-  document.querySelector('#spockRock').classList.remove('hide');
+function helperShow(arrowId, color) {
+  document.querySelector(arrowId).classList.toggle('hide');
+  document.querySelector(arrowId).classList.toggle(color);
 }
 
-function rockHelperHide() {
-  document.querySelector('#rockScissors').classList.add('hide');
-  document.querySelector('#rockLizard').classList.add('hide');
-  document.querySelector('#paperRock').classList.add('hide');
-  document.querySelector('#spockRock').classList.add('hide');
+function rockHelperShow() {
+  helperShow('#rockScissors', 'green');
+  helperShow('#rockLizard', 'green');
+  helperShow('#paperRock', 'red');
+  helperShow('#spockRock', 'red');
 }
 
 function scissorsHelperShow() {
-  document.querySelector('#scissorsPaper').classList.remove('hide');
-  document.querySelector('#scissorsLizard').classList.remove('hide');
-  document.querySelector('#spockScissors').classList.remove('hide');
-  document.querySelector('#rockScissors').classList.remove('hide');
-}
-
-function scissorsHelperHide() {
-  document.querySelector('#scissorsPaper').classList.add('hide');
-  document.querySelector('#scissorsLizard').classList.add('hide');
-  document.querySelector('#spockScissors').classList.add('hide');
-  document.querySelector('#rockScissors').classList.add('hide');
+  helperShow('#scissorsPaper', 'green');
+  helperShow('#scissorsLizard', 'green');
+  helperShow('#spockScissors', 'red');
+  helperShow('#rockScissors', 'red');
 }
 
 function paperHelperShow() {
-  document.querySelector('#scissorsPaper').classList.remove('hide');
-  document.querySelector('#paperRock').classList.remove('hide');
-  document.querySelector('#paperSpock').classList.remove('hide');
-  document.querySelector('#lizardPaper').classList.remove('hide');
-}
-
-function paperHelperHide() {
-  document.querySelector('#scissorsPaper').classList.add('hide');
-  document.querySelector('#paperRock').classList.add('hide');
-  document.querySelector('#paperSpock').classList.add('hide');
-  document.querySelector('#lizardPaper').classList.add('hide');
+  helperShow('#paperRock', 'green');
+  helperShow('#paperSpock', 'green');
+  helperShow('#scissorsPaper', 'red');
+  helperShow('#lizardPaper', 'red');
 }
 
 function lizardHelperShow() {
-  document.querySelector('#scissorsLizard').classList.remove('hide');
-  document.querySelector('#rockLizard').classList.remove('hide');
-  document.querySelector('#lizardSpock').classList.remove('hide');
-  document.querySelector('#lizardPaper').classList.remove('hide');
-}
-
-function lizardHelperHide() {
-  document.querySelector('#scissorsLizard').classList.add('hide');
-  document.querySelector('#rockLizard').classList.add('hide');
-  document.querySelector('#lizardSpock').classList.add('hide');
-  document.querySelector('#lizardPaper').classList.add('hide');
+  helperShow('#lizardSpock', 'green');
+  helperShow('#lizardPaper', 'green');
+  helperShow('#scissorsLizard', 'red');
+  helperShow('#rockLizard', 'red');
 }
 
 function spockHelperShow() {
-  document.querySelector('#spockScissors').classList.remove('hide');
-  document.querySelector('#spockRock').classList.remove('hide');
-  document.querySelector('#lizardSpock').classList.remove('hide');
-  document.querySelector('#paperSpock').classList.remove('hide');
+  helperShow('#spockScissors', 'green');
+  helperShow('#spockRock', 'green');
+  helperShow('#lizardSpock', 'red');
+  helperShow('#paperSpock', 'red');
 }
 
-function spockHelperHide() {
-  document.querySelector('#spockScissors').classList.add('hide');
-  document.querySelector('#spockRock').classList.add('hide');
-  document.querySelector('#lizardSpock').classList.add('hide');
-  document.querySelector('#paperSpock').classList.add('hide');
-}
+// Creating Arrows
 
 createArrow(210, 190, 108, -45, 'rockScissors'); // Rock to Scissors
 createArrow(245, 395, 270, 285, 'rockLizard'); // Rock to Lizard
@@ -117,18 +116,11 @@ createArrow(220, 360, 230, 37, 'spockScissors'); // Spock to Scissors
 function showAllArrows() {
   const arrows = document.querySelectorAll('.arrow');
   for (let arrow of arrows) {
-    arrow.classList.remove('hide');
+    arrow.classList.toggle('hide');
   }
 }
 
-function hideAllArrows() {
-  const arrows = document.querySelectorAll('.arrow');
-  for (let arrow of arrows) {
-    arrow.classList.add('hide');
-  }
-}
-
-function createArrow(x, y, width, angle, idName) {
+function createArrow(x, y, width, angle, idName) { // Can create Class!!!
   const arrow = document.createElement('div');
   const arrowHead = document.createElement('div');
   const arrowBody = document.createElement('div');
@@ -146,12 +138,14 @@ function createArrow(x, y, width, angle, idName) {
   arrow.id = idName;
 }
 
+// hideCompChoice(true);
 
+// function hideCompChoice(yes) {
+//   if (yes) {
+//     computerChoice.classList.toggle('hide');
+//   }
+// }
 
-hideCompChoice(true);
-
-function hideCompChoice(yes) {
-  if (yes) {
-    computerChoice.style.display = 'none';
-  }
+function changeFigureBorderColor(figure, color) {
+  figure.classList.toggle(color);
 }

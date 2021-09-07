@@ -245,6 +245,19 @@ main {
   border-radius: 170px;
 }
 
+.figure.red {
+  border: 7px solid #ff0000;
+}
+
+.figure.green {
+  border: 7px solid #00ff00;
+}
+
+.figure.choose {
+  -webkit-box-shadow: 0px 0px 20px 5px yellow;
+          box-shadow: 0px 0px 20px 5px yellow;
+}
+
 .arrow-body {
   position: absolute;
   width: 100px;
@@ -279,6 +292,30 @@ main {
           transform-origin: center;
 }
 
+.arrow.red > .arrow-body {
+  background-color: red;
+}
+
+.arrow.red > .arrow-head {
+  border-top: 8px solid red;
+  border-left: 8px solid red;
+}
+
+.arrow.green > .arrow-body {
+  background-color: #00ff00;
+}
+
+.arrow.green > .arrow-head {
+  border-top: 8px solid #00ff00;
+  border-left: 8px solid #00ff00;
+}
+
+.line {
+  height: 4px;
+  background-color: #242261;
+  width: 100px;
+}
+
 .hide {
   display: none;
 }
@@ -308,7 +345,7 @@ main {
   position: absolute;
   top: 10px;
   left: 280px;
-  background: center no-repeat url("/img/rock.jpg");
+  background: center no-repeat url("../img/rock.jpg");
   background-size: cover;
 }
 
@@ -316,7 +353,7 @@ main {
   position: absolute;
   top: 200px;
   left: 500px;
-  background: center no-repeat url("/img/paper.jpg");
+  background: center no-repeat url("../img/paper.jpg");
   background-size: cover;
 }
 
@@ -324,7 +361,7 @@ main {
   position: absolute;
   top: 200px;
   left: 60px;
-  background: center no-repeat url("/img/scissors.jpg");
+  background: center no-repeat url("../img/scissors.jpg");
   background-size: cover;
 }
 
@@ -332,7 +369,7 @@ main {
   position: absolute;
   top: 450px;
   left: 390px;
-  background: center no-repeat url("/img/spock.jpg");
+  background: center no-repeat url("../img/spock.jpg");
   background-size: cover;
 }
 
@@ -340,7 +377,7 @@ main {
   position: absolute;
   top: 450px;
   left: 170px;
-  background: center no-repeat url("/img/lizard.jpg");
+  background: center no-repeat url("../img/lizard.jpg");
   background-size: cover;
 }
 
@@ -348,7 +385,7 @@ main {
   position: absolute;
   top: 250px;
   left: 280px;
-  background: center no-repeat url("/img/comp.jpg");
+  background: center no-repeat url("../img/comp.jpg");
   background-size: cover;
 }
 /*# sourceMappingURL=style.css.map */

@@ -14,6 +14,8 @@ $figureSize: 170px;
 $mainX: 1;
 $mainY: 1;
 $primaryColor: #242261;
+$green: #00ff00;
+$red: #ff0000;
 $arrowHead: 8px;
 
 
@@ -49,6 +51,18 @@ main {
   border-radius: $figureSize;
 }
 
+.figure.red {
+  border: 7px solid $red;
+}
+
+.figure.green {
+  border: 7px solid $green;
+}
+
+.figure.choose {
+  box-shadow: 0px 0px 20px 5px yellow;
+}
+
 .arrow-body {
   position: absolute;
   width: 100px;
@@ -79,6 +93,30 @@ main {
   top: 100px;
   left: 20px;
   transform-origin: center;
+}
+
+.arrow.red > .arrow-body {
+  background-color: red;
+}
+
+.arrow.red > .arrow-head {
+  border-top: $arrowHead solid red;
+  border-left: $arrowHead solid red;
+}
+
+.arrow.green > .arrow-body {
+  background-color: $green;
+}
+
+.arrow.green > .arrow-head {
+  border-top: $arrowHead solid $green;
+  border-left: $arrowHead solid $green;
+}
+
+.line {
+  height: 4px;
+  background-color: $primaryColor;
+  width: 100px; 
 }
 
 .hide {
