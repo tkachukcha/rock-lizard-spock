@@ -19,6 +19,11 @@ $arrowHead: 8px;
 
 html {
   font-size: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+  margin-top: 20px;
 }
 
 * {
@@ -28,7 +33,7 @@ html {
 main {
   width: 800px;
   height: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
   position: relative;
   border: 3px solid $primaryColor;
 }
@@ -47,21 +52,21 @@ main {
 .arrow-body {
   position: absolute;
   width: 100px;
-  height: 3px;
+  height: 4px;
   background-color: $primaryColor;
-  top: 16px;
-  left: 15px;
+  top: 8px;
+  left: 5px;
   z-index: 99;
 }
 
 .arrow-head {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 2px;
+  left: 3px;
   border-top: $arrowHead solid $primaryColor;
   border-left: $arrowHead solid $primaryColor;
-  border-right: $arrowHead solid #fff;
-  border-bottom: $arrowHead solid #fff;
+  border-right: $arrowHead solid rgba(0,0,0,0);
+  border-bottom: $arrowHead solid rgba(0,0,0,0);
   height: $arrowHead;
   width: $arrowHead;
   transform: rotate(-45deg);
@@ -69,8 +74,37 @@ main {
 
 .arrow {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  width: 108px;
+  height: 25px;
+  top: 100px;
+  left: 20px;
+  transform-origin: center;
+}
+
+.hide {
+  display: none;
+}
+
+.help {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  background: $primaryColor;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 2px solid $primaryColor;
+  cursor: pointer;
+  
+}
+
+.help:hover {
+  border: 2px solid $primaryColor;
+  background: #fff;
+  color: $primaryColor;
 }
 
 @include figure(rock, 280, 10);
@@ -78,7 +112,7 @@ main {
 @include figure(paper, 500, 200);
 @include figure(scissors, 60, 200);
 
-@include figure(spock, 410, 440);
-@include figure(lizard, 150, 440);
+@include figure(spock, 390, 450);
+@include figure(lizard, 170, 450);
 
 @include figure(comp, 280, 250);

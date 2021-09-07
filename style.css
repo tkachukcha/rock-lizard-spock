@@ -215,6 +215,11 @@ template {
 
 html {
   font-size: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body {
+  margin-top: 20px;
 }
 
 * {
@@ -225,7 +230,7 @@ html {
 main {
   width: 800px;
   height: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
   position: relative;
   border: 3px solid #242261;
 }
@@ -243,21 +248,21 @@ main {
 .arrow-body {
   position: absolute;
   width: 100px;
-  height: 3px;
+  height: 4px;
   background-color: #242261;
-  top: 16px;
-  left: 15px;
+  top: 8px;
+  left: 5px;
   z-index: 99;
 }
 
 .arrow-head {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 2px;
+  left: 3px;
   border-top: 8px solid #242261;
   border-left: 8px solid #242261;
-  border-right: 8px solid #fff;
-  border-bottom: 8px solid #fff;
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid rgba(0, 0, 0, 0);
   height: 8px;
   width: 8px;
   -webkit-transform: rotate(-45deg);
@@ -266,8 +271,37 @@ main {
 
 .arrow {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  width: 108px;
+  height: 25px;
+  top: 100px;
+  left: 20px;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+}
+
+.hide {
+  display: none;
+}
+
+.help {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  background: #242261;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 2px solid #242261;
+  cursor: pointer;
+}
+
+.help:hover {
+  border: 2px solid #242261;
+  background: #fff;
+  color: #242261;
 }
 
 #rock {
@@ -296,16 +330,16 @@ main {
 
 #spock {
   position: absolute;
-  top: 440px;
-  left: 410px;
+  top: 450px;
+  left: 390px;
   background: center no-repeat url("/img/spock.jpg");
   background-size: cover;
 }
 
 #lizard {
   position: absolute;
-  top: 440px;
-  left: 150px;
+  top: 450px;
+  left: 170px;
   background: center no-repeat url("/img/lizard.jpg");
   background-size: cover;
 }
