@@ -4,20 +4,15 @@ const
   computerChoice = document.querySelector('#comp'),
   mainWindow = document.querySelector('main'),
   helpBtn = document.querySelector('.help');
-// rock = document.querySelector('#rock'),
-// scissors = document.querySelector('#scissors'),
-// paper = document.querySelector('#paper'),
-// lizard = document.querySelector('#lizard'),
-// spock = document.querySelector('#spock');
 
-let playerChoice;
 let compChoice;
+let playerChoice;
+let playerChoiceIndex;
+
 
 class Figure {
-  constructor(name, num, isChosen, winIndexes, loseIndexes) {
+  constructor(name, winIndexes, loseIndexes) {
     this.name = name;
-    this.num = num;
-    this.isChosen = isChosen;
     this.winIndexes = winIndexes;
     this.loseIndexes = loseIndexes;
   }
@@ -26,33 +21,78 @@ class Figure {
     div.innerHTML = `<div id="${this.name}" class="figure"></div>`;
     mainWindow.append(div);
   }
-  showHelp() { // NOT YET!
+  showHelp() {
     const helperFunc = `${this.name}HelperShow`;
     document.querySelector(`#${this.name}`).addEventListener('mouseenter', window[helperFunc]);
     document.querySelector(`#${this.name}`).addEventListener('mouseleave', window[helperFunc]);
   }
-  click() {
-    const name = this.name;
-    document.querySelector(`#${this.name}`).addEventListener('click', () => {
-      console.log(name);
-      console.log(figures.indexOf(name));
-    });
+  choose() {
+    
+    playerChoice = this.name;
   }
 }
 
-const rock = new Figure('rock', 1, false, [1,3], [2,4]);
-const scissors = new Figure('scissors', 1, false, [2,3], [0,4]);
-const paper = new Figure('paper', 1, false, [0,4], [2,3]);
-const lizard = new Figure('lizard', 1, false, [2,3], [4,0]);
-const spock = new Figure('spock', 1, false, [2,3], [4,0]);
+const variants = [
+  [0, 1],
+  [0, 3],
+  [1, 2],
+  [1, 3],
+  [2, 0],
+  [2, 4],
+  [3, 2],
+  [3, 4],
+  [4, 0],
+  [4, 1]
+];
+
+function determineWinner() {
+  let fight = [compChoice, playerChoice];
+  let index = variants.indexOf(fight);
+  
+}
+
+function removeChoice(){
+  const elems = document.querySelectorAll('.figures');
+  elems.forEach(element => {
+      element.classList.remove('choose');
+  });
+}
+
+function calculateComputerChoice() {
+  compChoice = random(0, 5);
+}
+
+function random(min, max) {
+  let rand = min + Math.random() * (max - min);
+  return Math.floor(rand);
+}
+
+function win(figure) {
+  figure.classList.toggle('green');
+}
+
+function loose(figure) {
+  figure.classList.toggle('red');
+}
+
+const rock = new Figure('rock', [1, 3], [2, 4]);
+const scissors = new Figure('scissors', [2, 3], [0, 4]);
+const paper = new Figure('paper', [0, 4], [2, 3]);
+const lizard = new Figure('lizard', [2, 3], [4, 0]);
+const spock = new Figure('spock', [2, 3], [4, 0]);
 
 const figures = [rock, scissors, paper, lizard, spock];
+
 
 figures.forEach(elem => {
   elem.render();
   elem.showHelp();
-  elem.click();
+  elem.choose();
 });
+
+function getIndexOfPlayerChoice(name) {
+  return figures.indexOf(name);
+}
 
 
 // Show Hints
@@ -145,7 +185,3 @@ function createArrow(x, y, width, angle, idName) { // Can create Class!!!
 //     computerChoice.classList.toggle('hide');
 //   }
 // }
-
-function changeFigureBorderColor(figure, color) {
-  figure.classList.toggle(color);
-}
