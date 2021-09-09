@@ -7,6 +7,8 @@
     left: #{$x}px;
     background: center no-repeat url('../img/#{$name}.jpg');
     background-size: cover;
+    z-index: 99;
+    cursor: pointer;
   }
 }
 

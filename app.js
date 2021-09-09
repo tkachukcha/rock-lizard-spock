@@ -3,11 +3,14 @@
 const
   computerChoice = document.querySelector('#comp'),
   mainWindow = document.querySelector('main'),
-  helpBtn = document.querySelector('.help');
+  helpBtn = document.querySelector('.help'),
+  comp = document.querySelector('#comp'),
+  imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg'];
 
 let compChoice;
 let playerChoice;
-let playerChoiceIndex;
+let playerScore = 0;
+let compScore = 0;
 
 
 class Figure {
@@ -26,13 +29,20 @@ class Figure {
     document.querySelector(`#${this.name}`).addEventListener('mouseenter', window[helperFunc]);
     document.querySelector(`#${this.name}`).addEventListener('mouseleave', window[helperFunc]);
   }
-  choose() {
-    
-    playerChoice = this.name;
+  chooseAndPlay() {
+    document.querySelector(`#${this.name}`).addEventListener('click', () => {
+      playerChoice = figures.indexOf(this);
+      calculateComputerChoice();
+      randomizePictures();
+
+
+    });
+
+
   }
 }
 
-const variants = [
+const winners = [
   [0, 1],
   [0, 3],
   [1, 2],
@@ -45,21 +55,46 @@ const variants = [
   [4, 1]
 ];
 
-function determineWinner() {
-  let fight = [compChoice, playerChoice];
-  let index = variants.indexOf(fight);
-  
-}
 
-function removeChoice(){
-  const elems = document.querySelectorAll('.figures');
-  elems.forEach(element => {
-      element.classList.remove('choose');
-  });
+
+function randomizePictures() {
+  comp.classList.toggle(`hide`);
+
+  const randomizerInterval = setInterval(() => {
+    comp.style.backgroundImage = `url(${imgs[random(0,5)]})`;
+  }, 100);
+  setTimeout(() => {
+    clearInterval(randomizerInterval);
+    comp.style.backgroundImage = `url(${imgs[compChoice]})`;
+    if (playerChoice === compChoice) {
+      console.log(`it's a tie!`);
+    } else {
+      let fight = [playerChoice, compChoice];
+
+      winners.forEach(pair => {
+        if (fight[0] === pair[0] && fight[1] === pair[1]) {
+          console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`);
+          playerScore++;
+
+        } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
+          console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`);
+          compScore++;
+        }
+      });
+      console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
+    }
+    setTimeout(()=>{
+      comp.classList.toggle(`hide`);
+
+    }, 2000);
+  }, 2000);
+
+
 }
 
 function calculateComputerChoice() {
   compChoice = random(0, 5);
+
 }
 
 function random(min, max) {
@@ -87,7 +122,7 @@ const figures = [rock, scissors, paper, lizard, spock];
 figures.forEach(elem => {
   elem.render();
   elem.showHelp();
-  elem.choose();
+  elem.chooseAndPlay();
 });
 
 function getIndexOfPlayerChoice(name) {
@@ -177,11 +212,3 @@ function createArrow(x, y, width, angle, idName) { // Can create Class!!!
   arrow.classList.add('hide');
   arrow.id = idName;
 }
-
-// hideCompChoice(true);
-
-// function hideCompChoice(yes) {
-//   if (yes) {
-//     computerChoice.classList.toggle('hide');
-//   }
-// }

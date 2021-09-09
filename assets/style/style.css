@@ -347,6 +347,8 @@ main {
   left: 280px;
   background: center no-repeat url("../img/rock.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #paper {
@@ -355,6 +357,8 @@ main {
   left: 500px;
   background: center no-repeat url("../img/paper.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #scissors {
@@ -363,6 +367,8 @@ main {
   left: 60px;
   background: center no-repeat url("../img/scissors.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #spock {
@@ -371,6 +377,8 @@ main {
   left: 390px;
   background: center no-repeat url("../img/spock.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #lizard {
@@ -379,6 +387,8 @@ main {
   left: 170px;
   background: center no-repeat url("../img/lizard.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #comp {
@@ -387,5 +397,7 @@ main {
   left: 280px;
   background: center no-repeat url("../img/comp.jpg");
   background-size: cover;
+  z-index: 99;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
