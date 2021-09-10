@@ -1,22 +1,5 @@
 'use strict';
 
-const
-  mainWindow = document.querySelector('main'),
-  helpBtn = document.querySelector('.help'),
-  playerText = document.querySelector('#player'),
-  compText = document.querySelector('#computer'),
-  result = document.querySelector('#result'),
-  comp = document.querySelector('#comp'),
-  imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg',
-    'assets/img/comp.jpg'
-  ];
-
-let compChoice;
-let playerChoice;
-let playerScore = 0;
-let compScore = 0;
-
-
 class Figure {
   constructor(name, winIndexes, loseIndexes) {
     this.name = name;
@@ -36,95 +19,43 @@ class Figure {
   chooseAndPlay() {
     document.querySelector(`#${this.name}`).addEventListener('click', () => {
       playerChoice = figures.indexOf(this);
-      calculateComputerChoice();
-      randomizePictures();
+      compChoice = random(0, 5);
+      play();
     });
-
-
   }
 }
 
-const winners = [
-  [0, 1],
-  [0, 3],
-  [1, 2],
-  [1, 3],
-  [2, 0],
-  [2, 4],
-  [3, 2],
-  [3, 4],
-  [4, 0],
-  [4, 1]
-];
+const
+  mainWindow = document.querySelector('main'),
+  helpBtn = document.querySelector('.help'),
+  playerText = document.querySelector('#player'),
+  compText = document.querySelector('#computer'),
+  result = document.querySelector('#result'),
+  comp = document.querySelector('#comp'),
+  imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg', 'assets/img/comp.jpg'],
+  winners = [
+    [0, 1],
+    [0, 3],
+    [1, 2],
+    [1, 3],
+    [2, 0],
+    [2, 4],
+    [3, 2],
+    [3, 4],
+    [4, 0],
+    [4, 1]
+  ], 
+  rock = new Figure('rock', [1, 3], [2, 4]),
+  scissors = new Figure('scissors', [2, 3], [0, 4]),
+  paper = new Figure('paper', [0, 4], [2, 3]),
+  lizard = new Figure('lizard', [2, 3], [4, 0]),
+  spock = new Figure('spock', [2, 3], [4, 0]),
+  figures = [rock, scissors, paper, lizard, spock];
 
-function randomizePictures() {
-  comp.classList.add('play');
-  comp.classList.toggle(`hide`);
-
-
-  const randomizerInterval = setInterval(() => {
-
-  }, 100);
-  setTimeout(() => {
-    clearInterval(randomizerInterval);
-    comp.style.backgroundImage = `url(${imgs[compChoice]})`;
-    if (playerChoice === compChoice) {
-      console.log(`it's a tie!`);
-      result.textContent = `it's a tie!`;
-    } else {
-      let fight = [playerChoice, compChoice];
-
-      winners.forEach(pair => {
-        if (fight[0] === pair[0] && fight[1] === pair[1]) {
-          result.textContent = `it's a tie!`;
-          console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`);
-          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
-          playerScore++;
-
-        } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
-          console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`);
-          compScore++;
-          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`;
-        }
-      });
-      console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
-    }
-    setTimeout(() => {
-      comp.classList.toggle(`hide`);
-      comp.style.backgroundImage = `url(${imgs[5]})`;
-
-    }, 2000);
-  }, 2000);
-
-
-}
-
-function calculateComputerChoice() {
-  compChoice = random(0, 5);
-
-}
-
-function random(min, max) {
-  let rand = min + Math.random() * (max - min);
-  return Math.floor(rand);
-}
-
-function win(figure) {
-  figure.classList.toggle('green');
-}
-
-function loose(figure) {
-  figure.classList.toggle('red');
-}
-
-const rock = new Figure('rock', [1, 3], [2, 4]);
-const scissors = new Figure('scissors', [2, 3], [0, 4]);
-const paper = new Figure('paper', [0, 4], [2, 3]);
-const lizard = new Figure('lizard', [2, 3], [4, 0]);
-const spock = new Figure('spock', [2, 3], [4, 0]);
-
-const figures = [rock, scissors, paper, lizard, spock];
-
+let compChoice,
+    playerChoice,
+    playerScore = 0,
+    compScore = 0;
 
 figures.forEach(elem => {
   elem.render();
@@ -132,15 +63,63 @@ figures.forEach(elem => {
   elem.chooseAndPlay();
 });
 
-function getIndexOfPlayerChoice(name) {
-  return figures.indexOf(name);
-}
+// Creating Arrows
 
+createArrow(210, 190, 108, -45, 'rockScissors'); // Rock to Scissors
+createArrow(245, 395, 270, 285, 'rockLizard'); // Rock to Lizard
+createArrow(430, 185, 108, 45, 'paperRock'); // Paper to Rock
+createArrow(490, 402, 90, 300, 'paperSpock'); // Paper to Spock
+createArrow(400, 282, 260, 180, 'scissorsPaper'); // Scissors to Paper
+createArrow(155, 400, 90, 240, 'scissorsLizard'); // Scissors to Lizard
+createArrow(290, 530, 40, 180, 'lizardSpock'); // Lizard to Spock
+createArrow(420, 360, 230, 145, 'lizardPaper'); // Lizard to Paper
+createArrow(350, 232, 270, 75, 'spockRock'); // Spock to Rock
+createArrow(220, 360, 230, 37, 'spockScissors'); // Spock to Scissors
 
 // Show Hints
 
 helpBtn.addEventListener('mouseenter', showAllArrows);
 helpBtn.addEventListener('mouseleave', showAllArrows);
+
+function play() {
+  comp.classList.add('play');
+  comp.classList.toggle(`hide`);
+  setTimeout(() => {
+    comp.style.backgroundImage = `url(${imgs[compChoice]})`;
+    if (playerChoice === compChoice) {
+      result.textContent = `it's a tie!`;
+    } else {
+      let fight = [playerChoice, compChoice];
+      winners.forEach(pair => {
+        if (fight[0] === pair[0] && fight[1] === pair[1]) {
+          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
+          playerScore++;
+        } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
+          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`;
+          compScore++;
+        }
+      });
+      console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
+    }
+    setTimeout(() => {
+      comp.classList.toggle(`hide`);
+      comp.style.backgroundImage = `url(${imgs[5]})`;
+    }, 1000);
+  }, 2000);
+}
+
+function random(min, max) {
+  let rand = min + Math.random() * (max - min);
+  return Math.floor(rand);
+}
+
+function winColorChange(figure) {
+  figure.classList.toggle('green');
+}
+
+function loseColorChange(figure) {
+  figure.classList.toggle('red');
+}
 
 function helperShow(arrowId, color) {
   document.querySelector(arrowId).classList.toggle('hide');
@@ -181,19 +160,6 @@ function spockHelperShow() {
   helperShow('#lizardSpock', 'red');
   helperShow('#paperSpock', 'red');
 }
-
-// Creating Arrows
-
-createArrow(210, 190, 108, -45, 'rockScissors'); // Rock to Scissors
-createArrow(245, 395, 270, 285, 'rockLizard'); // Rock to Lizard
-createArrow(430, 185, 108, 45, 'paperRock'); // Paper to Rock
-createArrow(490, 402, 90, 300, 'paperSpock'); // Paper to Spock
-createArrow(400, 282, 260, 180, 'scissorsPaper'); // Scissors to Paper
-createArrow(155, 400, 90, 240, 'scissorsLizard'); // Scissors to Lizard
-createArrow(290, 530, 40, 180, 'lizardSpock'); // Lizard to Spock
-createArrow(420, 360, 230, 145, 'lizardPaper'); // Lizard to Paper
-createArrow(350, 232, 270, 75, 'spockRock'); // Spock to Rock
-createArrow(220, 360, 230, 37, 'spockScissors'); // Spock to Scissors
 
 function showAllArrows() {
   const arrows = document.querySelectorAll('.arrow');
