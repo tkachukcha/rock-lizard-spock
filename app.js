@@ -1,11 +1,15 @@
 'use strict';
 
 const
-  computerChoice = document.querySelector('#comp'),
   mainWindow = document.querySelector('main'),
   helpBtn = document.querySelector('.help'),
+  playerText = document.querySelector('#player'),
+  compText = document.querySelector('#computer'),
+  result = document.querySelector('#result'),
   comp = document.querySelector('#comp'),
-  imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg'];
+  imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg',
+    'assets/img/comp.jpg'
+  ];
 
 let compChoice;
 let playerChoice;
@@ -34,8 +38,6 @@ class Figure {
       playerChoice = figures.indexOf(this);
       calculateComputerChoice();
       randomizePictures();
-
-
     });
 
 
@@ -55,36 +57,41 @@ const winners = [
   [4, 1]
 ];
 
-
-
 function randomizePictures() {
+  comp.classList.add('play');
   comp.classList.toggle(`hide`);
 
+
   const randomizerInterval = setInterval(() => {
-    comp.style.backgroundImage = `url(${imgs[random(0,5)]})`;
+
   }, 100);
   setTimeout(() => {
     clearInterval(randomizerInterval);
     comp.style.backgroundImage = `url(${imgs[compChoice]})`;
     if (playerChoice === compChoice) {
       console.log(`it's a tie!`);
+      result.textContent = `it's a tie!`;
     } else {
       let fight = [playerChoice, compChoice];
 
       winners.forEach(pair => {
         if (fight[0] === pair[0] && fight[1] === pair[1]) {
+          result.textContent = `it's a tie!`;
           console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`);
+          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
           playerScore++;
 
         } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
           console.log(`${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`);
           compScore++;
+          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`;
         }
       });
       console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       comp.classList.toggle(`hide`);
+      comp.style.backgroundImage = `url(${imgs[5]})`;
 
     }, 2000);
   }, 2000);

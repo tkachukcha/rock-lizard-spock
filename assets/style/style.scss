@@ -1,12 +1,12 @@
 @import 'reset';
 
 @mixin figure($name, $x, $y) {
-    ##{$name} {
+  ##{$name} {
     position: absolute;
     top: #{$y}px;
     left: #{$x}px;
     background: center no-repeat url('../img/#{$name}.jpg');
-    background-size: cover;
+    background-size: 120%;
     z-index: 99;
     cursor: pointer;
   }
@@ -81,8 +81,8 @@ main {
   left: 3px;
   border-top: $arrowHead solid $primaryColor;
   border-left: $arrowHead solid $primaryColor;
-  border-right: $arrowHead solid rgba(0,0,0,0);
-  border-bottom: $arrowHead solid rgba(0,0,0,0);
+  border-right: $arrowHead solid rgba(0, 0, 0, 0);
+  border-bottom: $arrowHead solid rgba(0, 0, 0, 0);
   height: $arrowHead;
   width: $arrowHead;
   transform: rotate(-45deg);
@@ -97,20 +97,20 @@ main {
   transform-origin: center;
 }
 
-.arrow.red > .arrow-body {
+.arrow.red>.arrow-body {
   background-color: red;
 }
 
-.arrow.red > .arrow-head {
+.arrow.red>.arrow-head {
   border-top: $arrowHead solid red;
   border-left: $arrowHead solid red;
 }
 
-.arrow.green > .arrow-body {
+.arrow.green>.arrow-body {
   background-color: $green;
 }
 
-.arrow.green > .arrow-head {
+.arrow.green>.arrow-head {
   border-top: $arrowHead solid $green;
   border-left: $arrowHead solid $green;
 }
@@ -118,7 +118,7 @@ main {
 .line {
   height: 4px;
   background-color: $primaryColor;
-  width: 100px; 
+  width: 100px;
 }
 
 .hide {
@@ -138,7 +138,7 @@ main {
   border-radius: 5px;
   border: 2px solid $primaryColor;
   cursor: pointer;
-  
+
 }
 
 .help:hover {
@@ -156,3 +156,50 @@ main {
 @include figure(lizard, 170, 450);
 
 @include figure(comp, 280, 250);
+
+.play {
+  animation-name: play;
+  animation-duration: 2s;
+}
+
+#comp2 {
+  background-position: center;
+}
+
+@keyframes play {
+  0% {
+    background-position: center;
+  }
+
+  16% {
+    background-position: -16px -9px;
+  }
+
+  32% {
+    background-position: center;
+  }
+
+  48% {
+    background-position: -16px -9px;
+  }
+
+  64% {
+    background-position: center;
+  }
+
+  80% {
+    background-position: -16px -9px;
+  }
+
+  96% {
+    background-position: center;
+  }
+
+}
+
+#result {
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}

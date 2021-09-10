@@ -346,7 +346,7 @@ main {
   top: 10px;
   left: 280px;
   background: center no-repeat url("../img/rock.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
@@ -356,7 +356,7 @@ main {
   top: 200px;
   left: 500px;
   background: center no-repeat url("../img/paper.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
@@ -366,7 +366,7 @@ main {
   top: 200px;
   left: 60px;
   background: center no-repeat url("../img/scissors.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
@@ -376,7 +376,7 @@ main {
   top: 450px;
   left: 390px;
   background: center no-repeat url("../img/spock.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
@@ -386,7 +386,7 @@ main {
   top: 450px;
   left: 170px;
   background: center no-repeat url("../img/lizard.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
@@ -396,8 +396,74 @@ main {
   top: 250px;
   left: 280px;
   background: center no-repeat url("../img/comp.jpg");
-  background-size: cover;
+  background-size: 120%;
   z-index: 99;
   cursor: pointer;
+}
+
+.play {
+  -webkit-animation-name: play;
+          animation-name: play;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+}
+
+#comp2 {
+  background-position: center;
+}
+
+@-webkit-keyframes play {
+  0% {
+    background-position: center;
+  }
+  16% {
+    background-position: -16px -9px;
+  }
+  32% {
+    background-position: center;
+  }
+  48% {
+    background-position: -16px -9px;
+  }
+  64% {
+    background-position: center;
+  }
+  80% {
+    background-position: -16px -9px;
+  }
+  96% {
+    background-position: center;
+  }
+}
+
+@keyframes play {
+  0% {
+    background-position: center;
+  }
+  16% {
+    background-position: -16px -9px;
+  }
+  32% {
+    background-position: center;
+  }
+  48% {
+    background-position: -16px -9px;
+  }
+  64% {
+    background-position: center;
+  }
+  80% {
+    background-position: -16px -9px;
+  }
+  96% {
+    background-position: center;
+  }
+}
+
+#result {
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
 }
 /*# sourceMappingURL=style.css.map */
