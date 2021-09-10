@@ -1,15 +1,15 @@
 'use strict';
 
 class Figure {
-  constructor(name, winIndexes, loseIndexes) {
+  constructor(name, element) {
     this.name = name;
-    this.winIndexes = winIndexes;
-    this.loseIndexes = loseIndexes;
+    this.element = element;
   }
   render() {
     const div = document.createElement('div');
     div.innerHTML = `<div id="${this.name}" class="figure"></div>`;
     mainWindow.append(div);
+    this.element = document.querySelector(`#${this.name}`);
   }
   showHelp() {
     const helperFunc = `${this.name}HelperShow`;
@@ -45,12 +45,14 @@ const
     [4, 0],
     [4, 1]
   ], 
-  rock = new Figure('rock', [1, 3], [2, 4]),
-  scissors = new Figure('scissors', [2, 3], [0, 4]),
-  paper = new Figure('paper', [0, 4], [2, 3]),
-  lizard = new Figure('lizard', [2, 3], [4, 0]),
-  spock = new Figure('spock', [2, 3], [4, 0]),
+  rock = new Figure('rock'),
+  scissors = new Figure('scissors'),
+  paper = new Figure('paper'),
+  lizard = new Figure('lizard'),
+  spock = new Figure('spock'),
   figures = [rock, scissors, paper, lizard, spock];
+
+ 
 
 let compChoice,
     playerChoice,
@@ -82,26 +84,37 @@ helpBtn.addEventListener('mouseenter', showAllArrows);
 helpBtn.addEventListener('mouseleave', showAllArrows);
 
 function play() {
+  comp.classList.remove('red');
+  comp.classList.remove('green');
   comp.classList.add('play');
   comp.classList.toggle(`hide`);
   setTimeout(() => {
     comp.style.backgroundImage = `url(${imgs[compChoice]})`;
     if (playerChoice === compChoice) {
       result.textContent = `it's a tie!`;
-    } else {
+    } else { 
       let fight = [playerChoice, compChoice];
+      let playerName = figures[playerChoice].name;
+
       winners.forEach(pair => {
         if (fight[0] === pair[0] && fight[1] === pair[1]) {
           result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
+          winColorChange(figures[playerChoice].element);
+          loseColorChange(comp);
           playerScore++;
         } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
-          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Comp wins!`;
+          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Computer wins!`;
+          winColorChange(comp);
+          loseColorChange(figures[playerChoice].element);
+          
           compScore++;
         }
       });
       console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
     }
     setTimeout(() => {
+      figures[playerChoice].element.classList.remove('red');
+      figures[playerChoice].element.classList.remove('green');
       comp.classList.toggle(`hide`);
       comp.style.backgroundImage = `url(${imgs[5]})`;
     }, 1000);
@@ -114,11 +127,14 @@ function random(min, max) {
 }
 
 function winColorChange(figure) {
-  figure.classList.toggle('green');
+  figure.classList.remove('red');
+  figure.classList.add('green');
 }
 
 function loseColorChange(figure) {
-  figure.classList.toggle('red');
+  figure.classList.remove('green');
+
+  figure.classList.add('red');
 }
 
 function helperShow(arrowId, color) {
