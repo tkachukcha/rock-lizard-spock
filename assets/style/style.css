@@ -292,24 +292,6 @@ main {
           transform-origin: center;
 }
 
-.arrow.red > .arrow-body {
-  background-color: red;
-}
-
-.arrow.red > .arrow-head {
-  border-top: 8px solid red;
-  border-left: 8px solid red;
-}
-
-.arrow.green > .arrow-body {
-  background-color: #00ff00;
-}
-
-.arrow.green > .arrow-head {
-  border-top: 8px solid #00ff00;
-  border-left: 8px solid #00ff00;
-}
-
 .line {
   height: 4px;
   background-color: #242261;
@@ -343,8 +325,6 @@ main {
 
 #rock {
   position: absolute;
-  top: 10px;
-  left: 280px;
   background: center no-repeat url("../img/rock.jpg");
   background-size: 120%;
   z-index: 99;
@@ -353,8 +333,6 @@ main {
 
 #paper {
   position: absolute;
-  top: 200px;
-  left: 500px;
   background: center no-repeat url("../img/paper.jpg");
   background-size: 120%;
   z-index: 99;
@@ -363,8 +341,6 @@ main {
 
 #scissors {
   position: absolute;
-  top: 200px;
-  left: 60px;
   background: center no-repeat url("../img/scissors.jpg");
   background-size: 120%;
   z-index: 99;
@@ -373,8 +349,6 @@ main {
 
 #spock {
   position: absolute;
-  top: 450px;
-  left: 390px;
   background: center no-repeat url("../img/spock.jpg");
   background-size: 120%;
   z-index: 99;
@@ -383,8 +357,6 @@ main {
 
 #lizard {
   position: absolute;
-  top: 450px;
-  left: 170px;
   background: center no-repeat url("../img/lizard.jpg");
   background-size: 120%;
   z-index: 99;
@@ -393,8 +365,6 @@ main {
 
 #comp {
   position: absolute;
-  top: 250px;
-  left: 280px;
   background: center no-repeat url("../img/comp.jpg");
   background-size: 120%;
   z-index: 99;
@@ -408,8 +378,9 @@ main {
           animation-duration: 2s;
 }
 
-#comp2 {
+#comp {
   background-position: center;
+  cursor: default;
 }
 
 @-webkit-keyframes play {

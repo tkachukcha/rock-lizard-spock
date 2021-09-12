@@ -1,10 +1,8 @@
 @import 'reset';
 
-@mixin figure($name, $x, $y) {
+@mixin figure($name) {
   ##{$name} {
     position: absolute;
-    top: #{$y}px;
-    left: #{$x}px;
     background: center no-repeat url('../img/#{$name}.jpg');
     background-size: 120%;
     z-index: 99;
@@ -97,23 +95,23 @@ main {
   transform-origin: center;
 }
 
-.arrow.red>.arrow-body {
-  background-color: red;
-}
+// .arrow.red>.arrow-body {
+//   background-color: red;
+// }
 
-.arrow.red>.arrow-head {
-  border-top: $arrowHead solid red;
-  border-left: $arrowHead solid red;
-}
+// .arrow.red>.arrow-head {
+//   border-top: $arrowHead solid red;
+//   border-left: $arrowHead solid red;
+// }
 
-.arrow.green>.arrow-body {
-  background-color: $green;
-}
+// .arrow.green>.arrow-body {
+//   background-color: $green;
+// }
 
-.arrow.green>.arrow-head {
-  border-top: $arrowHead solid $green;
-  border-left: $arrowHead solid $green;
-}
+// .arrow.green>.arrow-head {
+//   border-top: $arrowHead solid $green;
+//   border-left: $arrowHead solid $green;
+// }
 
 .line {
   height: 4px;
@@ -147,23 +145,24 @@ main {
   color: $primaryColor;
 }
 
-@include figure(rock, 280, 10);
+@include figure(rock);
 
-@include figure(paper, 500, 200);
-@include figure(scissors, 60, 200);
+@include figure(paper);
+@include figure(scissors);
 
-@include figure(spock, 390, 450);
-@include figure(lizard, 170, 450);
+@include figure(spock);
+@include figure(lizard);
 
-@include figure(comp, 280, 250);
+@include figure(comp);
 
 .play {
   animation-name: play;
   animation-duration: 2s;
 }
 
-#comp2 {
+#comp {
   background-position: center;
+  cursor: default;
 }
 
 @keyframes play {
@@ -203,3 +202,4 @@ main {
   bottom: 10px;
   left: 10px;
 }
+

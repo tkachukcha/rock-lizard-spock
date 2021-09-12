@@ -1,20 +1,23 @@
 'use strict';
 
 class Figure {
-  constructor(name, element) {
+  constructor(name, x, y, element) {
     this.name = name;
     this.element = element;
+    this.x = x;
+    this.y = y;
+    Figure.addFigures(this);
+  }
+  static addFigures(item) {
+    figures.push(item);
   }
   render() {
     const div = document.createElement('div');
     div.innerHTML = `<div id="${this.name}" class="figure"></div>`;
     mainWindow.append(div);
     this.element = document.querySelector(`#${this.name}`);
-  }
-  showHelp() {
-    const helperFunc = `${this.name}HelperShow`;
-    document.querySelector(`#${this.name}`).addEventListener('mouseenter', window[helperFunc]);
-    document.querySelector(`#${this.name}`).addEventListener('mouseleave', window[helperFunc]);
+    this.element.style.left = `${this.x}px`;
+    this.element.style.top = `${this.y}px`;
   }
   chooseAndPlay() {
     document.querySelector(`#${this.name}`).addEventListener('click', () => {
@@ -25,13 +28,43 @@ class Figure {
   }
 }
 
+class Arrow {
+  constructor(x, y, width, angle, idName) {
+    this.idName = idName;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.angle = angle;
+    Arrow.addArrows(this);
+  }
+  static addArrows(item) {
+    arrows.push(item);
+  }
+  render() {
+    const arrow = document.createElement('div');
+    const arrowHead = document.createElement('div');
+    const arrowBody = document.createElement('div');
+    arrow.classList.add('arrow');
+    arrowHead.classList.add('arrow-head');
+    arrowBody.classList.add('arrow-body');
+    arrow.style.left = `${this.x}px`;
+    arrow.style.top = `${this.y}px`;
+    arrow.style.transform = `rotate(${this.angle}deg)`;
+    arrowBody.style.width = `${this.width}px`;
+    mainWindow.append(arrow);
+    arrow.append(arrowHead);
+    arrow.append(arrowBody);
+    arrow.classList.add('hide');
+    arrow.id = this.idName;
+  }
+}
+
 const
   mainWindow = document.querySelector('main'),
   helpBtn = document.querySelector('.help'),
   playerText = document.querySelector('#player'),
   compText = document.querySelector('#computer'),
   result = document.querySelector('#result'),
-  comp = document.querySelector('#comp'),
   imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg', 'assets/img/comp.jpg'],
   winners = [
     [0, 1],
@@ -44,39 +77,47 @@ const
     [3, 4],
     [4, 0],
     [4, 1]
-  ], 
-  rock = new Figure('rock'),
-  scissors = new Figure('scissors'),
-  paper = new Figure('paper'),
-  lizard = new Figure('lizard'),
-  spock = new Figure('spock'),
-  figures = [rock, scissors, paper, lizard, spock];
-
- 
+  ],
+  figures = [],
+  rock = new Figure('rock', 280, 10),
+  scissors = new Figure('scissors', 60, 200),
+  paper = new Figure('paper', 500, 200),
+  lizard = new Figure('lizard', 170, 450),
+  spock = new Figure('spock', 390, 450),
+  comp = new Figure('comp', 280, 250),
+  arrows = [],
+  rockScissorsArrow = new Arrow(210, 190, 108, -45, 'rockScissors'),
+  rockLizardArrow = new Arrow(245, 395, 270, 285, 'rockLizard'),
+  paperRockArrow = new Arrow(430, 185, 108, 45, 'paperRock'),
+  paperSpockArrow = new Arrow(490, 402, 90, 300, 'paperSpock'),
+  scissorsPaperArrow = new Arrow(400, 282, 260, 180, 'scissorsPaper'),
+  scissorsLizardArrow = new Arrow(155, 400, 90, 240, 'scissorsLizard'),
+  lizardSpock = new Arrow(290, 530, 40, 180, 'lizardSpock'),
+  lizardPaper = new Arrow(420, 360, 230, 145, 'lizardPaper'),
+  spockRockArrow = new Arrow(350, 232, 270, 75, 'spockRock'),
+  spockScissorsArrow = new Arrow(220, 360, 230, 37, 'spockScissors');
 
 let compChoice,
-    playerChoice,
-    playerScore = 0,
-    compScore = 0;
+  playerChoice,
+  playerScore = 0,
+  compScore = 0;
+
+// Rendering Figures
 
 figures.forEach(elem => {
   elem.render();
-  elem.showHelp();
-  elem.chooseAndPlay();
+  if (figures.indexOf(elem) < figures.length - 1) {
+    elem.chooseAndPlay();
+  } else if (figures.indexOf(elem) == figures.length - 1) {
+    elem.element.classList.add('hide');
+  }
 });
 
-// Creating Arrows
+// Rendering Arrows
 
-createArrow(210, 190, 108, -45, 'rockScissors'); // Rock to Scissors
-createArrow(245, 395, 270, 285, 'rockLizard'); // Rock to Lizard
-createArrow(430, 185, 108, 45, 'paperRock'); // Paper to Rock
-createArrow(490, 402, 90, 300, 'paperSpock'); // Paper to Spock
-createArrow(400, 282, 260, 180, 'scissorsPaper'); // Scissors to Paper
-createArrow(155, 400, 90, 240, 'scissorsLizard'); // Scissors to Lizard
-createArrow(290, 530, 40, 180, 'lizardSpock'); // Lizard to Spock
-createArrow(420, 360, 230, 145, 'lizardPaper'); // Lizard to Paper
-createArrow(350, 232, 270, 75, 'spockRock'); // Spock to Rock
-createArrow(220, 360, 230, 37, 'spockScissors'); // Spock to Scissors
+arrows.forEach(item => {
+  item.render();
+});
 
 // Show Hints
 
@@ -84,41 +125,44 @@ helpBtn.addEventListener('mouseenter', showAllArrows);
 helpBtn.addEventListener('mouseleave', showAllArrows);
 
 function play() {
-  comp.classList.remove('red');
-  comp.classList.remove('green');
-  comp.classList.add('play');
-  comp.classList.toggle(`hide`);
+  figures[5].element.classList.add('play');
+  figures[5].element.classList.remove(`hide`);
   setTimeout(() => {
-    comp.style.backgroundImage = `url(${imgs[compChoice]})`;
+    figures[5].element.style.backgroundImage = `url(${imgs[compChoice]})`;
     if (playerChoice === compChoice) {
       result.textContent = `it's a tie!`;
-    } else { 
+    } else {
       let fight = [playerChoice, compChoice];
-      let playerName = figures[playerChoice].name;
 
       winners.forEach(pair => {
         if (fight[0] === pair[0] && fight[1] === pair[1]) {
           result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
-          winColorChange(figures[playerChoice].element);
-          loseColorChange(comp);
+          figures[playerChoice].element.classList.add('green');
+          figures[5].element.classList.add('red');
+
           playerScore++;
         } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
           result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Computer wins!`;
-          winColorChange(comp);
-          loseColorChange(figures[playerChoice].element);
-          
+          figures[playerChoice].element.classList.add('red');
+          figures[5].element.classList.add('green');
+
           compScore++;
         }
       });
-      console.log(`Your score: ${playerScore}, comp score: ${compScore}`);
     }
-    setTimeout(() => {
-      figures[playerChoice].element.classList.remove('red');
-      figures[playerChoice].element.classList.remove('green');
-      comp.classList.toggle(`hide`);
-      comp.style.backgroundImage = `url(${imgs[5]})`;
-    }, 1000);
+    resetStyles(3000);
   }, 2000);
+}
+
+function resetStyles(delay) {
+  setTimeout(() => {
+    figures[playerChoice].element.classList.remove('red');
+    figures[playerChoice].element.classList.remove('green');
+    figures[5].element.classList.remove('red');
+    figures[5].element.classList.remove('green');
+    figures[5].element.classList.toggle(`hide`);
+    figures[5].element.style.backgroundImage = `url(${imgs[5]})`;
+  }, delay);
 }
 
 function random(min, max) {
@@ -126,78 +170,9 @@ function random(min, max) {
   return Math.floor(rand);
 }
 
-function winColorChange(figure) {
-  figure.classList.remove('red');
-  figure.classList.add('green');
-}
-
-function loseColorChange(figure) {
-  figure.classList.remove('green');
-
-  figure.classList.add('red');
-}
-
-function helperShow(arrowId, color) {
-  document.querySelector(arrowId).classList.toggle('hide');
-  document.querySelector(arrowId).classList.toggle(color);
-}
-
-function rockHelperShow() {
-  helperShow('#rockScissors', 'green');
-  helperShow('#rockLizard', 'green');
-  helperShow('#paperRock', 'red');
-  helperShow('#spockRock', 'red');
-}
-
-function scissorsHelperShow() {
-  helperShow('#scissorsPaper', 'green');
-  helperShow('#scissorsLizard', 'green');
-  helperShow('#spockScissors', 'red');
-  helperShow('#rockScissors', 'red');
-}
-
-function paperHelperShow() {
-  helperShow('#paperRock', 'green');
-  helperShow('#paperSpock', 'green');
-  helperShow('#scissorsPaper', 'red');
-  helperShow('#lizardPaper', 'red');
-}
-
-function lizardHelperShow() {
-  helperShow('#lizardSpock', 'green');
-  helperShow('#lizardPaper', 'green');
-  helperShow('#scissorsLizard', 'red');
-  helperShow('#rockLizard', 'red');
-}
-
-function spockHelperShow() {
-  helperShow('#spockScissors', 'green');
-  helperShow('#spockRock', 'green');
-  helperShow('#lizardSpock', 'red');
-  helperShow('#paperSpock', 'red');
-}
-
 function showAllArrows() {
   const arrows = document.querySelectorAll('.arrow');
   for (let arrow of arrows) {
     arrow.classList.toggle('hide');
   }
-}
-
-function createArrow(x, y, width, angle, idName) { // Can create Class!!!
-  const arrow = document.createElement('div');
-  const arrowHead = document.createElement('div');
-  const arrowBody = document.createElement('div');
-  arrow.classList.add('arrow');
-  arrowHead.classList.add('arrow-head');
-  arrowBody.classList.add('arrow-body');
-  arrow.style.left = `${x}px`;
-  arrow.style.top = `${y}px`;
-  arrow.style.transform = `rotate(${angle}deg)`;
-  arrowBody.style.width = `${width}px`;
-  mainWindow.append(arrow);
-  arrow.append(arrowHead);
-  arrow.append(arrowBody);
-  arrow.classList.add('hide');
-  arrow.id = idName;
 }
