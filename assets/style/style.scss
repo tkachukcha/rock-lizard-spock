@@ -37,7 +37,7 @@ main {
   height: 750px;
   margin: 20px auto;
   position: relative;
-  border: 3px solid $primaryColor;
+  // border: 3px solid $primaryColor;
 }
 
 .figure {
@@ -95,24 +95,6 @@ main {
   transform-origin: center;
 }
 
-// .arrow.red>.arrow-body {
-//   background-color: red;
-// }
-
-// .arrow.red>.arrow-head {
-//   border-top: $arrowHead solid red;
-//   border-left: $arrowHead solid red;
-// }
-
-// .arrow.green>.arrow-body {
-//   background-color: $green;
-// }
-
-// .arrow.green>.arrow-head {
-//   border-top: $arrowHead solid $green;
-//   border-left: $arrowHead solid $green;
-// }
-
 .line {
   height: 4px;
   background-color: $primaryColor;
@@ -123,7 +105,7 @@ main {
   display: none;
 }
 
-.help {
+#help {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -136,24 +118,48 @@ main {
   border-radius: 5px;
   border: 2px solid $primaryColor;
   cursor: pointer;
-
 }
 
-.help:hover {
+#help:hover {
   border: 2px solid $primaryColor;
   background: #fff;
   color: $primaryColor;
 }
 
-@include figure(rock);
+#reset {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  background: $primaryColor;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 2px solid $primaryColor;
+  cursor: pointer;
+}
 
-@include figure(paper);
-@include figure(scissors);
+#reset:hover {
+  border: 2px solid $primaryColor;
+  background: #fff;
+  color: $primaryColor;
+}
 
-@include figure(spock);
-@include figure(lizard);
+#reset:active {
+  top: 12px;
+}
 
-@include figure(comp);
+@include figure(Rock);
+
+@include figure(Paper);
+@include figure(Scissors);
+
+@include figure(Spock);
+@include figure(Lizard);
+
+@include figure(Comp);
 
 .play {
   animation-name: play;
@@ -201,5 +207,13 @@ main {
   position: absolute;
   bottom: 10px;
   left: 10px;
+}
+
+#score {
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  text-align: right;
 }
 

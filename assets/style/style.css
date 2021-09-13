@@ -232,7 +232,6 @@ main {
   height: 750px;
   margin: 20px auto;
   position: relative;
-  border: 3px solid #242261;
 }
 
 .figure {
@@ -302,7 +301,7 @@ main {
   display: none;
 }
 
-.help {
+#help {
   position: absolute;
   top: 10px;
   left: 10px;
@@ -317,55 +316,80 @@ main {
   cursor: pointer;
 }
 
-.help:hover {
+#help:hover {
   border: 2px solid #242261;
   background: #fff;
   color: #242261;
 }
 
-#rock {
+#reset {
   position: absolute;
-  background: center no-repeat url("../img/rock.jpg");
+  top: 10px;
+  right: 10px;
+  width: auto;
+  height: auto;
+  font-size: 2rem;
+  background: #242261;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 2px solid #242261;
+  cursor: pointer;
+}
+
+#reset:hover {
+  border: 2px solid #242261;
+  background: #fff;
+  color: #242261;
+}
+
+#reset:active {
+  top: 12px;
+}
+
+#Rock {
+  position: absolute;
+  background: center no-repeat url("../img/Rock.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#paper {
+#Paper {
   position: absolute;
-  background: center no-repeat url("../img/paper.jpg");
+  background: center no-repeat url("../img/Paper.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#scissors {
+#Scissors {
   position: absolute;
-  background: center no-repeat url("../img/scissors.jpg");
+  background: center no-repeat url("../img/Scissors.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#spock {
+#Spock {
   position: absolute;
-  background: center no-repeat url("../img/spock.jpg");
+  background: center no-repeat url("../img/Spock.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#lizard {
+#Lizard {
   position: absolute;
-  background: center no-repeat url("../img/lizard.jpg");
+  background: center no-repeat url("../img/Lizard.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#comp {
+#Comp {
   position: absolute;
-  background: center no-repeat url("../img/comp.jpg");
+  background: center no-repeat url("../img/Comp.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
@@ -436,5 +460,13 @@ main {
   position: absolute;
   bottom: 10px;
   left: 10px;
+}
+
+#score {
+  font-size: 30px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  text-align: right;
 }
 /*# sourceMappingURL=style.css.map */

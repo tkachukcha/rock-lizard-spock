@@ -21,9 +21,12 @@ class Figure {
   }
   chooseAndPlay() {
     document.querySelector(`#${this.name}`).addEventListener('click', () => {
-      playerChoice = figures.indexOf(this);
       compChoice = random(0, 5);
-      play();
+      if (!clicked) {
+        playerChoice = figures.indexOf(this);
+        clicked = true;
+        play();
+      } 
     });
   }
 }
@@ -61,10 +64,13 @@ class Arrow {
 
 const
   mainWindow = document.querySelector('main'),
-  helpBtn = document.querySelector('.help'),
+  helpBtn = document.querySelector('#help'),
+  resetBtn = document.querySelector('#reset'),
   playerText = document.querySelector('#player'),
   compText = document.querySelector('#computer'),
   result = document.querySelector('#result'),
+  playerScoreElement = document.querySelector('#playerScore'),
+  compScoreElement = document.querySelector('#compScore'),
   imgs = ['assets/img/rock.jpg', 'assets/img/scissors.jpg', 'assets/img/paper.jpg', 'assets/img/lizard.jpg', 'assets/img/spock.jpg', 'assets/img/comp.jpg'],
   winners = [
     [0, 1],
@@ -79,12 +85,12 @@ const
     [4, 1]
   ],
   figures = [],
-  rock = new Figure('rock', 280, 10),
-  scissors = new Figure('scissors', 60, 200),
-  paper = new Figure('paper', 500, 200),
-  lizard = new Figure('lizard', 170, 450),
-  spock = new Figure('spock', 390, 450),
-  comp = new Figure('comp', 280, 250),
+  rock = new Figure('Rock', 280, 10),
+  scissors = new Figure('Scissors', 60, 200),
+  paper = new Figure('Paper', 500, 200),
+  lizard = new Figure('Lizard', 170, 450),
+  spock = new Figure('Spock', 390, 450),
+  comp = new Figure('Comp', 280, 250),
   arrows = [],
   rockScissorsArrow = new Arrow(210, 190, 108, -45, 'rockScissors'),
   rockLizardArrow = new Arrow(245, 395, 270, 285, 'rockLizard'),
@@ -98,9 +104,10 @@ const
   spockScissorsArrow = new Arrow(220, 360, 230, 37, 'spockScissors');
 
 let compChoice,
-  playerChoice,
-  playerScore = 0,
-  compScore = 0;
+    playerChoice,
+    playerScore = 0,
+    compScore = 0,
+    clicked = false;
 
 // Rendering Figures
 
@@ -124,33 +131,42 @@ arrows.forEach(item => {
 helpBtn.addEventListener('mouseenter', showAllArrows);
 helpBtn.addEventListener('mouseleave', showAllArrows);
 
+// Reset scores 
+
+resetBtn.addEventListener('click', () => {
+  playerScore = 0;
+  compScore = 0;
+  compScoreElement.textContent = compScore;
+  playerScoreElement.textContent = playerScore;
+});
+
 function play() {
   figures[5].element.classList.add('play');
   figures[5].element.classList.remove(`hide`);
   setTimeout(() => {
     figures[5].element.style.backgroundImage = `url(${imgs[compChoice]})`;
     if (playerChoice === compChoice) {
-      result.textContent = `it's a tie!`;
+      result.textContent = `It's a tie!`;
     } else {
       let fight = [playerChoice, compChoice];
 
       winners.forEach(pair => {
         if (fight[0] === pair[0] && fight[1] === pair[1]) {
-          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: You win!`;
+          result.textContent = `${figures[playerChoice].name} beats ${figures[compChoice].name}: You win!`;
           figures[playerChoice].element.classList.add('green');
           figures[5].element.classList.add('red');
-
           playerScore++;
+          playerScoreElement.textContent = playerScore;
         } else if (fight[1] === pair[0] && fight[0] === pair[1]) {
-          result.textContent = `${figures[playerChoice].name} vs ${figures[compChoice].name}: Computer wins!`;
+          result.textContent = `${figures[compChoice].name} beats ${figures[playerChoice].name}: Computer wins!`;
           figures[playerChoice].element.classList.add('red');
           figures[5].element.classList.add('green');
-
           compScore++;
+          compScoreElement.textContent = compScore;
         }
       });
     }
-    resetStyles(3000);
+    resetStyles(2000);
   }, 2000);
 }
 
@@ -162,6 +178,8 @@ function resetStyles(delay) {
     figures[5].element.classList.remove('green');
     figures[5].element.classList.toggle(`hide`);
     figures[5].element.style.backgroundImage = `url(${imgs[5]})`;
+    result.textContent = ``;
+    clicked = false;
   }, delay);
 }
 
