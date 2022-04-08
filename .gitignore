@@ -1,5 +1,4 @@
 .jshintrc
-.app.zip
 assets/style/*.scss
 assets/style/*.css.map
 assets/img/Main pic.jpg

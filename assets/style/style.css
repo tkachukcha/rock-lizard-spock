@@ -116,24 +116,24 @@ select {
 }
 
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type=button],
+[type=reset],
+[type=submit] {
   -webkit-appearance: button;
 }
 
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
 button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
@@ -165,8 +165,8 @@ textarea {
   overflow: auto;
 }
 
-[type="checkbox"],
-[type="radio"] {
+[type=checkbox],
+[type=radio] {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   /* 1 */
@@ -174,19 +174,19 @@ textarea {
   /* 2 */
 }
 
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
 
-[type="search"] {
+[type=search] {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
   /* 2 */
 }
 
-[type="search"]::-webkit-search-decoration {
+[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -215,7 +215,7 @@ template {
 
 html {
   font-size: 10px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 body {
@@ -347,49 +347,49 @@ main {
   top: 12px;
 }
 
-#Rock {
+#rock {
   position: absolute;
-  background: center no-repeat url("../img/Rock.jpg");
+  background: center no-repeat url("../img/rock.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#Paper {
+#paper {
   position: absolute;
-  background: center no-repeat url("../img/Paper.jpg");
+  background: center no-repeat url("../img/paper.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#Scissors {
+#scissors {
   position: absolute;
-  background: center no-repeat url("../img/Scissors.jpg");
+  background: center no-repeat url("../img/scissors.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#Spock {
+#spock {
   position: absolute;
-  background: center no-repeat url("../img/Spock.jpg");
+  background: center no-repeat url("../img/spock.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#Lizard {
+#lizard {
   position: absolute;
-  background: center no-repeat url("../img/Lizard.jpg");
+  background: center no-repeat url("../img/lizard.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
 }
 
-#Comp {
+#comp {
   position: absolute;
-  background: center no-repeat url("../img/Comp.jpg");
+  background: center no-repeat url("../img/comp.jpg");
   background-size: 120%;
   z-index: 99;
   cursor: pointer;
@@ -454,7 +454,6 @@ main {
     background-position: center;
   }
 }
-
 #result {
   font-size: 30px;
   position: absolute;
@@ -468,5 +467,4 @@ main {
   bottom: 10px;
   right: 10px;
   text-align: right;
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
